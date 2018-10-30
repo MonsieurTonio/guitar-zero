@@ -49,8 +49,6 @@ function drawLines(){
 
 
 
-
-
 /* CREATE NOTE */
 
 function Note (xArg, yArg, speedXArg, speedYArg, colorArg) {
@@ -62,7 +60,7 @@ function Note (xArg, yArg, speedXArg, speedYArg, colorArg) {
 }
 
 Note.prototype.updateNote = function (){
-    allNotes.push(Note);
+    // allNotes.push(Note);
     clearCanvas();
     drawLines();
     drawFretBoard();
@@ -73,7 +71,7 @@ Note.prototype.updateNote = function (){
     ctx.arc(this.x, this.y, 10*this.y*0.01, 0, 2*Math.PI);
     ctx.fill();
     ctx.stroke();
-    window.requestAnimationFrame(this.updateNote.bind(this));
+    // window.requestAnimationFrame(this.updateNote.bind(this));
 }
 
 var NoteN = new Note (340, 0, -0.6, 1, "red");
@@ -82,29 +80,25 @@ var NoteK = new Note (400, 0, 0, 1, "blue");
 var NoteL = new Note (430, 0, 0.3, 1, "yellow");
 var NoteM = new Note (460, 0, 0.6, 1, "pink");
 
-var allNotes =[]
 
+
+var allNotes =[]
 
 function drawNotes () {
     NoteN.updateNote();
     NoteJ.updateNote();
     NoteK.updateNote();
-    NoteK.updateNote();
     NoteL.updateNote();
     NoteM.updateNote();
 }
-// drawNotes();
+
+window.requestAnimationFrame(drawNotes);
 
 function clearCanvas() {
     ctx.clearRect(0,0,800,400);
-
-    // for (var i = 0; i < allNotes.length; i++) {
-    //   var myNote = allNotes[i];
-    //   myNote.updateNote();
-    // }
 }
 
-window.requestAnimationFrame(drawNotes);
+
 
 
 
