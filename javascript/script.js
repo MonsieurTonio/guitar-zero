@@ -5,6 +5,7 @@ document.getElementById("start-button").onclick = function() {
     let audio = new Audio("sounds/400Coups.mp3");
     audio.play();
     chronometer.startClick();
+    drawNotes();
 }
 
 var canvas = document.getElementById("canvas");
@@ -20,6 +21,7 @@ document.onkeydown = function(e) {
       case 76: console.log('Note L ' + chronometer.millisec); break;
       case 75: console.log('Note K ' + chronometer.millisec); break;
       case 74: console.log('Note J ' + chronometer.millisec); break;
+      case 78: console.log('Note N ' + chronometer.millisec); break;
   }
 }
 
@@ -48,6 +50,10 @@ function drawLines(){
 };
 
 
+function clearCanvas() {
+    ctx.clearRect(0,0,800,400);
+}
+
 
 /* CREATE NOTE */
 
@@ -59,11 +65,8 @@ function Note (xArg, yArg, speedXArg, speedYArg, colorArg) {
     this.color = colorArg;
 }
 
-Note.prototype.updateNote = function (){
-    // allNotes.push(Note);
-    clearCanvas();
-    drawLines();
-    drawFretBoard();
+
+Note.prototype.updateNote = function () {
     ctx.beginPath();
     ctx.fillStyle = this.color;
     this.x += this.speedX;
@@ -71,7 +74,6 @@ Note.prototype.updateNote = function (){
     ctx.arc(this.x, this.y, 10*this.y*0.01, 0, 2*Math.PI);
     ctx.fill();
     ctx.stroke();
-    // window.requestAnimationFrame(this.updateNote.bind(this));
 }
 
 var NoteN = new Note (340, 0, -0.6, 1, "red");
@@ -84,42 +86,37 @@ var NoteM = new Note (460, 0, 0.6, 1, "pink");
 
 var allNotes =[]
 
+
 function drawNotes () {
+    clearCanvas();      // Ne faire qu'une fois pour toutes les notes
+    drawLines();        // Ne faire qu'une fois pour toutes les notes
+    drawFretBoard();    // Ne faire qu'une fois pour toutes les notes
+    // Maintenant que le "paysage" est là, "peindre" nos Notes
     NoteN.updateNote();
     NoteJ.updateNote();
     NoteK.updateNote();
     NoteL.updateNote();
     NoteM.updateNote();
+    if (NoteN.y < 500 ||
+        NoteJ.y < 500 || 
+        NoteK.y < 500 || 
+        NoteL.y < 500 || 
+        NoteM.y < 500)
+        // Demander que l'animation continue.
+    requestAnimationFrame(drawNotes);
 }
 
-window.requestAnimationFrame(drawNotes);
 
-function clearCanvas() {
-    ctx.clearRect(0,0,800,400);
-}
-
-
-
-
-
+// var partoch = [
+//     {NoteN, time: [567, 5678, 4567, 5678]}
+//     {NoteJ, time: [567, 5678, 4567, 5678]}
+//     {NoteK, time: [567, 5678, 4567, 5678]}
+//     {NoteL, time: [567, 5678, 4567, 5678]}
+//     {NoteM, time: [567, 5678, 4567, 5678]}
+// ]
 
 
 
-
-        // /* GENERATE NOTE N */
-        // window.requestAnimationFrame(NoteN.updateNote.bind(NoteN));
-
-        // /* GENERATE NOTE J */
-        // window.requestAnimationFrame(NoteJ.updateNote.bind(NoteJ));
-
-        // /* GENERATE NOTE K */
-        // window.requestAnimationFrame(NoteK.updateNote.bind(NoteK));
-
-        // /* GENERATE NOTE L */
-        // window.requestAnimationFrame(NoteL.updateNote.bind(NoteL));
-
-        // /* GENERATE NOTE M */
-       
 
 //     musicScore : function () {
 //         {NoteN, time:[]}
