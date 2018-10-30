@@ -47,9 +47,7 @@ function drawLines(){
     ctx.stroke();
 };
 
-function clearCanvas() {
-  ctx.clearRect(0,0,800,400);
-}
+
 
 
 /* CREATE NOTE */
@@ -76,79 +74,79 @@ Note.prototype.updateNote = function (){
     window.requestAnimationFrame(this.updateNote.bind(this));
 }
 
+var NoteN = new Note (340, 0, -0.6, 1, "red");
+var NoteJ = new Note (370, 0, -0.3, 1, "black");
+var NoteK = new Note (400, 0, 0, 1, "blue");
+var NoteL = new Note (430, 0, 0.3, 1, "yellow");
+var NoteM = new Note (460, 0, 0.6, 1, "pink");
+
+var allNotes =[]
 
 
-/* GENERATE NOTE N */
+function drawNotes () {
+    NoteN.updateNote();
+    NoteJ.updateNote();
+    NoteK.updateNote();
+    NoteK.updateNote();
+    NoteL.updateNote();
+    NoteM.updateNote();
+    clearCanvas();
+}
+drawNotes();
 
-NoteN.prototype = Object.create (Note.prototype);
-NoteN.prototype.constructor = NoteN;
 
-function NoteN () {
-    Note.call (this, 340, 0, -0.6, 1, "red")
+function clearCanvas() {
+    ctx.clearRect(0,0,800,400);
+
+    // for (var i = 0; i < allNotes.length; i++) {
+    //   var myNote = allNotes[i];
+    //   myNote.updateNote();
+    // }
 }
 
-var myNoteN = new NoteN();
-window.requestAnimationFrame(myNoteN.updateNote.bind(myNoteN));
+window.requestAnimationFrame(clearCanvas);
 
 
-/* GENERATE NOTE J */
-
-NoteJ.prototype = Object.create (Note.prototype);
-NoteJ.prototype.constructor = NoteJ;
-
-function NoteJ () {
-    Note.call (this, 370, 0, -0.3, 1, "black")
-}
-
-var myNoteJ = new NoteJ();
-window.requestAnimationFrame(myNoteJ.updateNote.bind(myNoteJ));
 
 
-/* GENERATE NOTE K */
 
-NoteK.prototype = Object.create (Note.prototype);
-NoteK.prototype.constructor = NoteK;
+        // /* GENERATE NOTE N */
+        // window.requestAnimationFrame(NoteN.updateNote.bind(NoteN));
 
-function NoteK () {
-    Note.call (this, 400, 0, 0, 1, "blue")
-}
+        // /* GENERATE NOTE J */
+        // window.requestAnimationFrame(NoteJ.updateNote.bind(NoteJ));
 
-var myNoteK = new NoteK();
-window.requestAnimationFrame(myNoteK.updateNote.bind(myNoteK));
+        // /* GENERATE NOTE K */
+        // window.requestAnimationFrame(NoteK.updateNote.bind(NoteK));
 
+        // /* GENERATE NOTE L */
+        // window.requestAnimationFrame(NoteL.updateNote.bind(NoteL));
 
-/* GENERATE NOTE L */
+        // /* GENERATE NOTE M */
+       
 
-
-NoteL.prototype = Object.create (Note.prototype);
-NoteL.prototype.constructor = NoteL;
-
-function NoteL () {
-    Note.call (this, 400, 0, 0, 1, "yellow")
-}
-
-var myNoteL = new NoteL();
-window.requestAnimationFrame(myNoteK.updateNote.bind(myNoteL));
-
-
-/* GENERATE NOTE M */
-
-NoteM.prototype = Object.create (Note.prototype);
-NoteM.prototype.constructor = NoteM;
-
-function NoteM () {
-    Note.call (this, 460, 0, 0.6, 1, "#F08786")
-}
-
-var myNoteM = new NoteM();
-window.requestAnimationFrame(myNoteM.updateNote.bind(myNoteM));
+//     musicScore : function () {
+//         {NoteN, time:[]}
+//         {NoteJ, time:[]}
+//         {NoteK, time:[]}
+//         {NoteL, time:[]}
+//         {NoteM, time:[]}
+//     }
+//     drawAllNotes : function () {
 
 
-NoteN();
-NoteJ();
-NoteK();
-NoteL();
-NoteM();
+//     }
+
+// ]
+
+// var score = []
+
+
+
+
+
+
+
 
 /* UPDATE ALL THE CANVAS */
 
