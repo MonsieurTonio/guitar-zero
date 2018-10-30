@@ -50,6 +50,7 @@ function drawLines(){
 
 
 
+
 /* CREATE NOTE */
 
 function Note (xArg, yArg, speedXArg, speedYArg, colorArg) {
@@ -61,6 +62,7 @@ function Note (xArg, yArg, speedXArg, speedYArg, colorArg) {
 }
 
 Note.prototype.updateNote = function (){
+    allNotes.push(Note);
     clearCanvas();
     drawLines();
     drawFretBoard();
@@ -90,10 +92,8 @@ function drawNotes () {
     NoteK.updateNote();
     NoteL.updateNote();
     NoteM.updateNote();
-    clearCanvas();
 }
-drawNotes();
-
+// drawNotes();
 
 function clearCanvas() {
     ctx.clearRect(0,0,800,400);
@@ -104,7 +104,9 @@ function clearCanvas() {
     // }
 }
 
-window.requestAnimationFrame(clearCanvas);
+window.requestAnimationFrame(drawNotes);
+
+
 
 
 
