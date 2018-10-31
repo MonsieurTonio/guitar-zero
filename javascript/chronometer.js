@@ -22,5 +22,5 @@ Chronometer.prototype.setMilliseconds = function () {
 
 Chronometer.prototype.setTime = function (){
     this.millisec = this.setMilliseconds()
-    // console.log(this.millisec)
+    // console.log(this.currentTime)
 }

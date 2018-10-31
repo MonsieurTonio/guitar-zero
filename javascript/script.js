@@ -84,7 +84,9 @@ var NoteM = new Note (460, 0, 0.6, 1, "pink");
 
 
 
-var allNotes =[]
+var allNotes =[];
+var lastTimeCheck = 0;
+var noteIndex = 0;
 
 
 function drawNotes () {
@@ -92,11 +94,38 @@ function drawNotes () {
     drawLines();        // Ne faire qu'une fois pour toutes les notes
     drawFretBoard();    // Ne faire qu'une fois pour toutes les notes
     // Maintenant que le "paysage" est là, "peindre" nos Notes
-    NoteN.updateNote();
-    NoteJ.updateNote();
-    NoteK.updateNote();
-    NoteL.updateNote();
-    NoteM.updateNote();
+    
+    var currentNoteTime = Object.keys(partoch)[noteIndex];
+    if (chronometer.currentTime >= currentNoteTime) {
+        allNotes.push(partoch[Object.keys(partoch)[noteIndex]]);
+        noteIndex ++;
+    }
+
+
+    // for (var i = 0; i < Object.keys(partoch).length; i++) {
+    //     var noteTime = Object.keys(partoch)[i];
+    //     if (noteTime > lastTimeCheck && noteTime < chronometer.currentTime) {
+    //         allNotes.push(partoch[chronometer.currentTime]);
+    //     }
+    // }
+    // lastTimeCheck = chronometer.currentTime;
+
+    // if (Object.keys(partoch).indexOf(chronometer.millisec) !== -1){
+    //     
+    // }
+    // console.log(chronometer.millisec);
+    console.log(allNotes);
+    
+    for (var i = 0; i < allNotes.length; i++){
+        allNotes[i].updateNote();
+    }
+
+    // new Note (340, 0, -0.6, 1, "red").updateNote();
+    // NoteJ.updateNote();
+    // NoteK.updateNote();
+    // NoteL.updateNote();
+    // NoteM.updateNote();
+        
     if (NoteN.y < 500 ||
         NoteJ.y < 500 || 
         NoteK.y < 500 || 
@@ -107,13 +136,60 @@ function drawNotes () {
 }
 
 
-// var partoch = [
+
+
+var partoch = {
+    636: new Note (430, 0, 0.3, 1, "yellow"),
+    952: new Note (400, 0, 0, 1, "blue"),
+    1038: new Note (460, 0, 0.6, 1, "pink"),
+    1127: new Note (430, 0, 0.3, 1, "yellow"), 
+    1213: new Note (400, 0, 0, 1, "blue"),
+    1289: new Note (460, 0, 0.6, 1, "pink"), 
+    1380: new Note (430, 0, 0.3, 1, "yellow"), 
+    1463: new Note (400, 0, 0, 1, "blue"),
+    1541: new Note (370, 0, -0.3, 1, "black"), 
+    2651: new Note (430, 0, 0.3, 1, "yellow"), 
+    2977: new Note (400, 0, 0, 1, "blue"),
+    3051: new Note (460, 0, 0.6, 1, "pink"), 
+    3131: new Note (430, 0, 0.3, 1, "yellow"), 
+    3217: new Note (400, 0, 0, 1, "blue"),
+    3298: new Note (460, 0, 0.6, 1, "pink"), 
+    3381: new Note (430, 0, 0.3, 1, "yellow"), 
+    3474: new Note (400, 0, 0, 1, "blue"),
+    3547: new Note (460, 0, 0.6, 1, "pink"), 
+    3633: new Note (430, 0, 0.3, 1, "yellow"), 
+    4139: new Note (400, 0, 0, 1, "blue"),
+    4642: new Note (430, 0, 0.3, 1, "yellow"), 
+    4957: new Note (400, 0, 0, 1, "blue"),
+    5037: new Note (460, 0, 0.6, 1, "pink"), 
+    5131: new Note (430, 0, 0.3, 1, "yellow"), 
+    5221: new Note (400, 0, 0, 1, "blue"),
+    5301: new Note (460, 0, 0.6, 1, "pink"), 
+    5387: new Note (430, 0, 0.3, 1, "yellow"), 
+    5475: new Note (400, 0, 0, 1, "blue"), 
+    5555: new Note (370, 0, -0.3, 1, "black"), 
+    6643: new Note (430, 0, 0.3, 1, "yellow"), 
+    6982: new Note (400, 0, 0, 1, "blue"), 
+    7053: new Note (460, 0, 0.6, 1, "pink"), 
+    7134: new Note (430, 0, 0.3, 1, "yellow"), 
+    7223: new Note (400, 0, 0, 1, "blue"), 
+    7296: new Note (460, 0, 0.6, 1, "pink"), 
+    7384: new Note (430, 0, 0.3, 1, "yellow"), 
+    7470: new Note (400, 0, 0, 1, "blue"), 
+    7543: new Note (460, 0, 0.6, 1, "pink"), 
+    7633: new Note (430, 0, 0.3, 1, "yellow"), 
+    8136: new Note (400, 0, 0, 1, "blue"), 
+}
+
+
 //     {NoteN, time: [567, 5678, 4567, 5678]}
-//     {NoteJ, time: [567, 5678, 4567, 5678]}
+//     {NoteJ, time: [256, 456, 1345, 6789]}
 //     {NoteK, time: [567, 5678, 4567, 5678]}
 //     {NoteL, time: [567, 5678, 4567, 5678]}
 //     {NoteM, time: [567, 5678, 4567, 5678]}
 // ]
+
+
 
 
 
