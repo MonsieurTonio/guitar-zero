@@ -3,10 +3,14 @@ var chronometer = new Chronometer();
 
 document.getElementById("start-button").onclick = function() {
     let audio = new Audio("sounds/400Coups.mp3");
-    audio.play();
+    // audio.play();
+    setTimeout(function() {
+        audio.play();
+    }, 4100);
     chronometer.startClick();
     drawNotes();
 }
+
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -28,9 +32,14 @@ document.onkeydown = function(e) {
 
 /* GENERATE FRETBOARD */
 
-function drawFretBoard (){
+function drawMatchArea (){
     ctx.fillStyle = "#7CFC00";
     ctx.fillRect (0, 220, 800, 90);
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.moveTo(0,265);
+    ctx.lineTo(800,265);
+    ctx.stroke();
 }
 
 function drawLines(){
@@ -90,11 +99,10 @@ var noteIndex = 0;
 
 
 function drawNotes () {
-    clearCanvas();      // Ne faire qu'une fois pour toutes les notes
-    drawLines();        // Ne faire qu'une fois pour toutes les notes
-    drawFretBoard();    // Ne faire qu'une fois pour toutes les notes
-    // Maintenant que le "paysage" est là, "peindre" nos Notes
-    
+    clearCanvas();   
+    drawLines();     
+    drawMatchArea(); 
+    // Maintenant que le "paysage" est là, "peindre" nos Notes   
     var currentNoteTime = Object.keys(partoch)[noteIndex];
     if (chronometer.currentTime >= currentNoteTime) {
         allNotes.push(partoch[Object.keys(partoch)[noteIndex]]);
@@ -114,13 +122,13 @@ function drawNotes () {
     //     
     // }
     // console.log(chronometer.millisec);
-    console.log(allNotes);
+    // console.log(allNotes);
     
     for (var i = 0; i < allNotes.length; i++){
         allNotes[i].updateNote();
     }
 
-    // new Note (340, 0, -0.6, 1, "red").updateNote();
+    // NoteN.updateNote();
     // NoteJ.updateNote();
     // NoteK.updateNote();
     // NoteL.updateNote();
@@ -136,174 +144,167 @@ function drawNotes () {
 }
 
 
-
+// 1030 millisecondes pour arrive dans la verte
 
 var partoch = {
-    636: new Note (430, 0, 0.3, 1, "yellow"),
-    952: new Note (400, 0, 0, 1, "blue"),
-    1038: new Note (460, 0, 0.6, 1, "pink"),
-    1127: new Note (430, 0, 0.3, 1, "yellow"), 
-    1213: new Note (400, 0, 0, 1, "blue"),
-    1289: new Note (460, 0, 0.6, 1, "pink"), 
-    1380: new Note (430, 0, 0.3, 1, "yellow"), 
-    1463: new Note (400, 0, 0, 1, "blue"),
-    1541: new Note (370, 0, -0.3, 1, "black"), 
-    2651: new Note (430, 0, 0.3, 1, "yellow"), 
-    2977: new Note (400, 0, 0, 1, "blue"),
-    3051: new Note (460, 0, 0.6, 1, "pink"), 
-    3131: new Note (430, 0, 0.3, 1, "yellow"), 
-    3217: new Note (400, 0, 0, 1, "blue"),
-    3298: new Note (460, 0, 0.6, 1, "pink"), 
-    3381: new Note (430, 0, 0.3, 1, "yellow"), 
-    3474: new Note (400, 0, 0, 1, "blue"),
-    3547: new Note (460, 0, 0.6, 1, "pink"), 
-    3633: new Note (430, 0, 0.3, 1, "yellow"), 
-    4139: new Note (400, 0, 0, 1, "blue"),
-    4642: new Note (430, 0, 0.3, 1, "yellow"), 
-    4957: new Note (400, 0, 0, 1, "blue"),
-    5037: new Note (460, 0, 0.6, 1, "pink"), 
-    5131: new Note (430, 0, 0.3, 1, "yellow"), 
-    5221: new Note (400, 0, 0, 1, "blue"),
-    5301: new Note (460, 0, 0.6, 1, "pink"), 
-    5387: new Note (430, 0, 0.3, 1, "yellow"), 
-    5475: new Note (400, 0, 0, 1, "blue"), 
-    5555: new Note (370, 0, -0.3, 1, "black"), 
-    6643: new Note (430, 0, 0.3, 1, "yellow"), 
-    6982: new Note (400, 0, 0, 1, "blue"), 
-    7053: new Note (460, 0, 0.6, 1, "pink"), 
-    7134: new Note (430, 0, 0.3, 1, "yellow"), 
-    7223: new Note (400, 0, 0, 1, "blue"), 
-    7296: new Note (460, 0, 0.6, 1, "pink"), 
-    7384: new Note (430, 0, 0.3, 1, "yellow"), 
-    7470: new Note (400, 0, 0, 1, "blue"), 
-    7543: new Note (460, 0, 0.6, 1, "pink"), 
-    7633: new Note (430, 0, 0.3, 1, "yellow"), 
-    8136: new Note (400, 0, 0, 1, "blue"), 
+    /* PRE-INTRO */
+    263: new Note (400, 0, 0, 1, "blue"),
+    307: new Note (400, 0, 0, 1, "blue"),
+    343: new Note (400, 0, 0, 1, "blue"), 
+    373: new Note (400, 0, 0, 1, "blue"), 
+    499: new Note (400, 0, 0, 1, "blue"), 
+
+    /* INTRO */
+    642: new Note (430, 0, 0.3, 1, "yellow"),
+    960: new Note (400, 0, 0, 1, "blue"),
+    1049: new Note (460, 0, 0.6, 1, "pink"),
+    1143: new Note (430, 0, 0.3, 1, "yellow"),
+    1229: new Note (400, 0, 0, 1, "blue"),
+    1306: new Note (460, 0, 0.6, 1, "pink"),
+    1393: new Note (430, 0, 0.3, 1, "yellow"),
+    1467: new Note (400, 0, 0, 1, "blue"),
+    1548: new Note (370, 0, -0.3, 1, "black"),
+    1630: new Note (400, 0, 0, 1, "blue"),
+    2004: new Note (430, 0, 0.3, 1, "yellow"),
+    2133: new Note (370, 0, -0.3, 1, "black"),
+    2390: new Note (340, 0, -0.6, 1, "red"),
+    2635: new Note (430, 0, 0.3, 1, "yellow"),
+    2967: new Note (400, 0, 0, 1, "blue"),
+    3048: new Note (460, 0, 0.6, 1, "pink"),
+    3136: new Note (430, 0, 0.3, 1, "yellow"),
+    3228: new Note (400, 0, 0, 1, "blue"),
+    3302: new Note (460, 0, 0.6, 1, "pink"),
+    3383: new Note (430, 0, 0.3, 1, "yellow"),
+    3463: new Note (400, 0, 0, 1, "blue"),
+    3546: new Note (460, 0, 0.6, 1, "pink"),
+    3629: new Note (430, 0, 0.3, 1, "yellow"),
+    3979: new Note (460, 0, 0.6, 1, "pink"),
+    4140: new Note (370, 0, -0.3, 1, "black"),
+    4632: new Note (430, 0, 0.3, 1, "yellow"),
+    4958: new Note (400, 0, 0, 1, "blue"),
+    5048: new Note (460, 0, 0.6, 1, "pink"),
+    5134: new Note (430, 0, 0.3, 1, "yellow"),
+    5222: new Note (400, 0, 0, 1, "blue"),
+    5305: new Note (460, 0, 0.6, 1, "pink"),
+    5395: new Note (430, 0, 0.3, 1, "yellow"),
+    5473: new Note (400, 0, 0, 1, "blue"),
+    5554: new Note (370, 0, -0.3, 1, "black"),
+    5633: new Note (400, 0, 0, 1, "blue"),
+    5995: new Note (430, 0, 0.3, 1, "yellow"),
+    6124: new Note (370, 0, -0.3, 1, "black"),
+    6385: new Note (340, 0, -0.6, 1, "red"),
+    6632: new Note (430, 0, 0.3, 1, "yellow"),
+    6962: new Note (400, 0, 0, 1, "blue"),
+    7050: new Note (460, 0, 0.6, 1, "pink"),
+    7134: new Note (430, 0, 0.3, 1, "yellow"),
+    7213: new Note (400, 0, 0, 1, "blue"),
+    7304: new Note (460, 0, 0.6, 1, "pink"),
+    7381: new Note (430, 0, 0.3, 1, "yellow"),
+    7464: new Note (400, 0, 0, 1, "blue"),
+    7547: new Note (460, 0, 0.6, 1, "pink"),
+    7626: new Note (430, 0, 0.3, 1, "yellow"),
+    7995: new Note (460, 0, 0.6, 1, "pink"),
+    8144: new Note (370, 0, -0.3, 1, "black"),
+
+    /* COUPLET 1 */
+    8769: new Note (430, 0, 0.3, 1, "yellow"), 
+    8770: new Note (370, 0, -0.3, 1, "black"), 
+    8843: new Note (430, 0, 0.3, 1, "yellow"), 
+    8844: new Note (370, 0, -0.3, 1, "black"), 
+    9006: new Note (430, 0, 0.3, 1, "yellow"), 
+    9007: new Note (370, 0, -0.3, 1, "black"), 
+    9085: new Note (430, 0, 0.3, 1, "yellow"), 
+    9086: new Note (370, 0, -0.3, 1, "black"), 
+    9254: new Note (370, 0, -0.3, 1, "black"), 
+    9255: new Note (400, 0, 0, 1, "blue"), 
+    9327: new Note (370, 0, -0.3, 1, "black"), 
+    9328: new Note (400, 0, 0, 1, "blue"), 
+    9508: new Note (370, 0, -0.3, 1, "black"), 
+    9509: new Note (400, 0, 0, 1, "blue"), 
+    9587: new Note (370, 0, -0.3, 1, "black"), 
+    9588: new Note (400, 0, 0, 1, "blue"), 
+    9769: new Note (400, 0, 0, 1, "blue"), 
+    9770: new Note (460, 0, 0.6, 1, "pink"), 
+    9844: new Note (400, 0, 0, 1, "blue"), 
+    9845: new Note (460, 0, 0.6, 1, "pink"), 
+    10014: new Note (400, 0, 0, 1, "blue"),
+    10015: new Note (460, 0, 0.6, 1, "pink"),
+    10088: new Note (460, 0, 0.6, 1, "pink"),
+    10089: new Note (400, 0, 0, 1, "blue"),
 }
 
 
-//     {NoteN, time: [567, 5678, 4567, 5678]}
-//     {NoteJ, time: [256, 456, 1345, 6789]}
-//     {NoteK, time: [567, 5678, 4567, 5678]}
-//     {NoteL, time: [567, 5678, 4567, 5678]}
-//     {NoteM, time: [567, 5678, 4567, 5678]}
-// ]
+ function noteIn(){
+     if (this.y === 265 ){
+         console.log(chronometer.currentTime)
+     }
+ } 
+ noteIn();
+
+
+ var match = document.querySelector(".matchArea");
+ match.style.visibility = "hidden";
+ 
+ var matchCoord = match.getBoundingClientRect();
+ var leftX = matchCoord.left;
+ var rightX = matchCoord.right;
+ 
+ var matchBox = {
+   x: leftX,
+   y: rightX,
+   width: 800,
+   height: 90
+ };
+ 
+ function matched(arrows) {
+   const box = matchBox;
+   return arrows.some(
+     arrow => box.x + box.width >= arrow.x + arrow.width && box.x <= arrow.x
+   );
+ }
+ 
+ var scoreCounter = document.querySelector(".scores");
+ var score = 0;
+ 
+ var lives = 3;
+ var livesCounter = document.querySelector("#lives");
+ 
+ function correctKeyPress(points) {
+   score += points;
+   scoreCounter.innerHTML = score;
+   match.style.borderColor = "green";
+ }
 
 
 
 
+/* COUPLET 1 SUITE */
 
-
-//     musicScore : function () {
-//         {NoteN, time:[]}
-//         {NoteJ, time:[]}
-//         {NoteK, time:[]}
-//         {NoteL, time:[]}
-//         {NoteM, time:[]}
-//     }
-//     drawAllNotes : function () {
-
-
-//     }
-
-// ]
-
-// var score = []
-
-
-
-
-
-
-
-
-/* UPDATE ALL THE CANVAS */
-
-// function updateCanvasAll(){
-//     ctx.beginPath();
-//     clearCanvas();
-//     updateCanvasN();
-//     updateCanvasJ();
-//     updateCanvasK();
-//     updateCanvasL();
-//     updateCanvasM();
-//     ctx.fill();
-//     drawLines();
-//     drawFretBoard();
-//     ctx.stroke();
-//     window.requestAnimationFrame(updateCanvasAll);
-// }
-// window.requestAnimationFrame(updateCanvasAll);
-
-
-
-
-/* INTRO */
-
-// Note L 636
-// Note K 952
-// Note M 1038
-// Note L 1127
-// Note K 1213
-// Note M 1289
-// Note L 1380
-// Note K 1463
-// Note J 1541
-// Note L 2651
-// Note K 2977
-// Note M 3051
-// Note L 3131
-// Note K 3217
-// Note M 3298
-// Note L 3381
-// Note K 3474
-// Note M 3547
-// Note L 3633
-// Note K 4139
-// Note L 4642
-// Note K 4957
-// Note M 5037
-// Note L 5131
-// Note K 5221
-// Note M 5301
-// Note L 5387
-// Note K 5475
-// Note J 5555
-// Note L 6643
-// Note K 6982
-// Note M 7053
-// Note L 7134
-// Note K 7223
-// Note M 7296
-// Note L 7384
-// Note K 7470
-// Note M 7543
-// Note L 7633
-// Note K 8136
-
-
-
-
-
-
-
-
-
-
-    // function drawPaths(){
-    //     ctx.beginPath();
-    //     ctx.moveTo(360,0);
-    //     ctx.lineTo(0,800);
-    //     ctx.moveTo(390,0);
-    //     ctx.lineTo(200,800);
-    //     ctx.moveTo(420,0);
-    //     ctx.lineTo(400,800);
-    //     ctx.moveTo(450,0);
-    //     ctx.lineTo(600,800);
-    //     ctx.moveTo(480,0);
-    //     ctx.lineTo(800,800);
-    //     ctx.stroke();
-    // };
-
-    // drawPaths()
-    
+// Note K 10265
+// Note K 10339
+// Note L 10339
+// Note L 10506
+// Note K 10508
+// Note L 10585
+// Note K 10586
+// Note J 10762
+// Note L 10833
+// Note J 11001
+// Note L 11001
+// Note L 11077
+// Note J 11079
+// Note J 11251
+// Note K 11253
+// Note J 11328
+// Note K 11328
+// Note J 11506
+// Note K 11508
+// Note J 11577
+// Note K 11578
+// Note M 11757
+// Note K 11758
+// Note K 11835
+// Note M 11837
+// Note K 12016
+// Note K 12130
+// Note L 12136
