@@ -356,7 +356,7 @@ function gameOver() {
 }
 
 function youWin() {
-    if (score > 120){
+    if (score > 200){
         clearCanvas();
         ctx.font = "20px Arial";
         ctx.textAlign = "center";
