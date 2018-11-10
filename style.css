@@ -4,7 +4,7 @@ body {
 }
 
 .game-intro {
-    position: absolute;
+    position: relative;
     padding: 0% 10%;
 }
 
@@ -28,6 +28,16 @@ body button {
     border-radius: 5px;
     margin-bottom: 20px;
 }
+  
+.scoreBox {
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 100px;
+    border: 4px black solid;
+    background-color: rgb(246, 233, 233);
+    text-align: center;
+    font-size: 1.5em;
+}
 
 #game-board {
     float: left;
@@ -35,7 +45,12 @@ body button {
 }
 
 #canvas {
-    position: absolute;
-    margin-top: 500px;
-    z-index: 1;
+    position: relative;
+    display: flex;
+    float: left;
+}
+
+
+.loser-img {
+    width: 350px;
 }

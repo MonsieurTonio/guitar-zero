@@ -1,8 +1,7 @@
 var chronometer = new Chronometer();
-
+var audio = new Audio("sounds/400Coups.mp3");
 
 document.getElementById("start-button").onclick = function() {
-    let audio = new Audio("sounds/400Coups.mp3");
     // audio.play();
     setTimeout(function() {
         audio.play();
@@ -74,7 +73,7 @@ function clearCanvas() {
 }
 
 
-/* CREATE NOTE */
+/* NOTE CREATOR */
 
 function Note (xArg, yArg, speedXArg, speedYArg, laneArg, colorArg) {
     this.x = xArg;
@@ -84,6 +83,7 @@ function Note (xArg, yArg, speedXArg, speedYArg, laneArg, colorArg) {
     this.lane = laneArg;
     this.hit = false;
     this.color = colorArg;
+    this.checked = false;
 };
 
 
@@ -95,15 +95,21 @@ Note.prototype.updateNote = function () {
     ctx.arc(this.x, this.y, 10*this.y*0.01, 0, 2*Math.PI);
     ctx.fill();
     ctx.stroke();
+    youWin();
+    gameOver();
+
 };
 
+
+
+/* DRAW THE NOTES */
 
 
 var allNotes =[];
 var lastTimeCheck = 0;
 var noteIndex = 0;
 var score = 10;
-
+var scoreSpan = document.getElementById('scores')
 
 
 function drawNotes () {
@@ -126,20 +132,31 @@ function drawNotes () {
     for (var i = 0; i < allNotes.length; i++){
         if (allNotes[i].y < 500) {
             newNotes.push(allNotes[i])
-        } else if (!allNotes[i].hit) {
-            score -= 2;
-            console.log(score);
+        }
+
+        if (!allNotes[i].hit && allNotes[i].y > 310 && allNotes[i].checked === false) {
+            score -= 3;
+            allNotes[i].checked = true;
+            console.log(score)
         }
     };
 
     // Demander que l'animation continue.
-
     allNotes = newNotes;
-    requestAnimationFrame(drawNotes);
+
+    if (chronometer.currentTime < 10500){
+        requestAnimationFrame(drawNotes);
+    } else {
+        gameOver();
+
+    }
+    
+    scoreSpan.innerHTML = score;
 }
 
 
-/* MATCH NOTES*/
+
+/* MATCH NOTES */
 
 document.onkeydown = function(e) {
     var aNoteWasHit = false;
@@ -148,12 +165,12 @@ document.onkeydown = function(e) {
             switch (e.keyCode) {
 
                 case 77:
-                if (allNotes[i].lane === 77) {
-                    allNotes[i].hit = true;
-                    aNoteWasHit = true;
-                    score += 5;
-                    console.log(score);
-                    console.log('Note M ok : ' + chronometer.millisec);
+                    if (allNotes[i].lane === 77) {
+                        allNotes[i].hit = true;
+                        aNoteWasHit = true;
+                        score += 5;
+                        console.log(score);
+                        console.log('Note M ok : ' + chronometer.millisec);
                 } break;
 
                 case 76:
@@ -194,13 +211,13 @@ document.onkeydown = function(e) {
             }
         } 
     } if (aNoteWasHit === false) {
-        score -= 1;
-        console.log(score);
+        score -= 2;
     }
 }
 
 
 
+/* PARTITION */
 
 
 var partoch = {
@@ -293,42 +310,6 @@ var partoch = {
 
 
 
-
-//  var matchBoxJ = {
-//     x: leftX,
-//     y: rightX,
-//     width: 80,
-//     height: 90
-//   };
-
-//   var matchBoxK = {
-//     x: leftX,
-//     y: rightX,
-//     width: 80,
-//     height: 90
-//   };
-
-//   var matchBoxL = {
-//     x: leftX,
-//     y: rightX,
-//     width: 80,
-//     height: 90
-//   };
-
-//   var matchBoxM = {
-//     x: leftX,
-//     y: rightX,
-//     width: 80,
-//     height: 90
-//   };
-
-
- 
- 
-
-
-
-
 /* COUPLET 1 SUITE */
 
 // Note K 10265
@@ -359,3 +340,28 @@ var partoch = {
 // Note K 12016
 // Note K 12130
 // Note L 12136
+
+
+/* GAME OVER */
+
+function gameOver() {
+    if (score <= 0) {
+        score = 0;
+        clearCanvas();
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "red";
+        ctx.fillText("👎🏽 YOU'RE REALLY A ZERO DUDE... 👎🏽", 400, 150);
+        audio.pause();
+    }
+}
+
+function youWin() {
+    if (score > 120){
+        clearCanvas();
+        ctx.font = "20px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("🤘🏽 YOU'RE A FUCKING ROCKSTAR !!! 🤘🏽", 400, 150);
+        audio.pause();
+    }
+}
+
