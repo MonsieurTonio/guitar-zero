@@ -97,7 +97,6 @@ Note.prototype.updateNote = function () {
     ctx.stroke();
     youWin();
     gameOver();
-
 };
 
 
